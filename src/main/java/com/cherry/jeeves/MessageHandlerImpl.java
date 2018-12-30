@@ -6,6 +6,7 @@ import com.cherry.jeeves.service.MessageHandler;
 import com.cherry.jeeves.service.WechatHttpService;
 import com.cherry.jeeves.utils.Alimama.HttpClientDemo;
 import com.cherry.jeeves.utils.Alimama.Item;
+import com.cherry.jeeves.utils.Alimama.Template;
 import com.cherry.jeeves.utils.MessageUtils;
 import com.cherry.jeeves.utils.trulingRobot.HttpUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Component;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,10 @@ public class MessageHandlerImpl implements MessageHandler {
     private static final Logger logger = LoggerFactory.getLogger(MessageHandlerImpl.class);
     @Autowired
     private WechatHttpService wechatHttpService;
+
+    //private String Template="复制淘口令后打开淘宝，点击进入弹窗，下单成功即可领取奖励金。";
+
+    private Map map = null;
 
     @Override
     public void onReceivingChatRoomTextMessage(Message message) {
@@ -146,10 +153,28 @@ public class MessageHandlerImpl implements MessageHandler {
     }
     //回复信息
     private void replyMessage(Message message) throws IOException {
-        //Item.getItemDetails(message.getContent());
-        HttpClientDemo.getRedirectInfo();
-        ChatMessage chatMessage = HttpUtils.sendMessage(message.getContent());
-        wechatHttpService.sendText(message.getFromUserName(), chatMessage.getMsg());
+        if(message.getContent().contains("https://")) {
+           if(new Item().getItemDetails(message.getContent())) {
+               map = Item.returnMes();
+               String coup = (String) map.get("couponInfo");
+               Double fee = (Double)map.get("tkCommFee");
+               String feearg = String.format("%.2f", fee);
+               String koulin = (String)map.get("koulin");
+               String couponkey = map.get("shortkey").toString();
+               wechatHttpService.sendText(message.getFromUserName(), Template.getMessage(coup,feearg,koulin,couponkey));
+           }else{
+               wechatHttpService.sendText(message.getFromUserName(), "该商品暂无优惠信息，淘宝90%的商品都有优惠哦");
+           }
+
+
+        }else{
+            ChatMessage chatMessage = HttpUtils.sendMessage(message.getContent());
+            wechatHttpService.sendText(message.getFromUserName(), chatMessage.getMsg());
+        }
+       // HttpClientDemo.getRedirectInfo();
+        //ChatMessage chatMessage = HttpUtils.sendMessage(message.getContent());
+       //wechatHttpService.sendText(message.getFromUserName(), chatMessage.getMsg());
+
 
     }
 }

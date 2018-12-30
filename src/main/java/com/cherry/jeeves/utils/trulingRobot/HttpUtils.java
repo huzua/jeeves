@@ -48,6 +48,7 @@ public class HttpUtils {
             java.net.URL urlNet = new URL(url);
             HttpURLConnection conn = (HttpURLConnection)urlNet.openConnection();
 
+
             conn.setReadTimeout(5*1000);
             conn.setConnectTimeout(5*1000);
             conn.setRequestMethod("GET");
