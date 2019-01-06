@@ -1,8 +1,11 @@
 package com.cherry.jeeves.utils.Alimama;
 
 import com.cherry.jeeves.http.HttpApiService;
+import com.cherry.jeeves.utils.Alimama.Constants.Urls;
+import com.cherry.jeeves.utils.Alimama.Service.GetExtendMessage;
+import com.cherry.jeeves.utils.Alimama.Service.GetId;
+import com.cherry.jeeves.utils.Alimama.pojo.ExtendMessage;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,14 +24,17 @@ public class Item {
     public static String couponInfo;
 
     public Boolean getItemDetails(String key) {
-        //清洗字符串获得淘口令
+        //清洗字符串获得淘口令短链
         String[] arr = key.split("https://");
         String getidurl = "https://" + arr[1].split(" ")[0];
-        //调用淘宝api解析淘口令获得商品id
+
         //清洗出来的短链，用httpclient跳转，然后解析entity，用jsoup解析，正则表达式匹配url规则
+        //获取推广位信息
+        ExtendMessage extendMessage = GetExtendMessage.getExtendMessage(Urls.EXTEND_URL,"tag=29");
         try {
+            //调用淘宝api解析淘口令获得商品id
             String id = GetId.getArg(getidurl).get("id");
-            String url = "http://pub.alimama.com/common/code/getAuctionCode.json?auctionid=" + id + "&adzoneid=73654400&siteid=21940266&scenes=1&t=1489238018764&_tb_token_=qO2Nj1Sk4Rq&pvid=10_122.233.43.77_1118_1489238002348";
+            String url = "http://pub.alimama.com/common/code/getAuctionCode.json?auctionid=" + id + "&adzoneid="+extendMessage.getBoothId()+"&siteid="+extendMessage.getSite()+"&scenes=1&t=1489238018764&_tb_token_=qO2Nj1Sk4Rq&pvid=10_122.233.43.77_1118_1489238002348";
             //这里会碰到301问题，试着用httpclient解决
             HttpApiService httpApiService = new HttpApiService();
             String jsondata = httpApiService.doGet(url);

@@ -31,6 +31,7 @@ public class MessageHandlerImpl implements MessageHandler {
     private static final Logger logger = LoggerFactory.getLogger(MessageHandlerImpl.class);
     @Autowired
     private WechatHttpService wechatHttpService;
+    private boolean robotstart=false;
 
     //private String Template="复制淘口令后打开淘宝，点击进入弹窗，下单成功即可领取奖励金。";
 
@@ -153,24 +154,33 @@ public class MessageHandlerImpl implements MessageHandler {
     }
     //回复信息
     private void replyMessage(Message message) throws IOException {
-        if(message.getContent().contains("https://")) {
-           if(new Item().getItemDetails(message.getContent())) {
-               map = Item.returnMes();
-               String coup = (String) map.get("couponInfo");
-               Double fee = (Double)map.get("tkCommFee");
-               String feearg = String.format("%.2f", fee);
-               String koulin = (String)map.get("koulin");
-               String couponkey = map.get("shortkey").toString();
-               wechatHttpService.sendText(message.getFromUserName(), Template.getMessage(coup,feearg,koulin,couponkey));
-           }else{
-               wechatHttpService.sendText(message.getFromUserName(), "该商品暂无优惠信息，淘宝90%的商品都有优惠哦");
-           }
+            if (message.getContent().contains("https://")) {
+                if (new Item().getItemDetails(message.getContent())) {
+                    map = Item.returnMes();
+                    String coup = (String) map.get("couponInfo");
+                    Double fee = (Double) map.get("tkCommFee");
+                    String feearg = String.format("%.2f", fee);
+                    String koulin = (String) map.get("koulin");
+                    //针对有佣金但不一定有优惠券的情况
+                    String couponkey = null;
+                    if (map.get("shortkey") != null) {
+                        couponkey = map.get("shortkey").toString();
+                    }
 
+                    wechatHttpService.sendText(message.getFromUserName(), Template.getMessage(coup, feearg, koulin, couponkey));
+                } else {
+                    wechatHttpService.sendText(message.getFromUserName(), "该商品暂无优惠信息，淘宝90%的商品都有优惠哦");
+                }
+            } else if (message.getContent().equals("月光宝盒开")) {
+                robotstart = true;
+            } else if (message.getContent().equals("月光宝盒关")) {
+                robotstart = false;
+            }
+            if(robotstart){
+                ChatMessage chatMessage = HttpUtils.sendMessage(message.getContent());
+                wechatHttpService.sendText(message.getFromUserName(), chatMessage.getMsg());
+            }
 
-        }else{
-            ChatMessage chatMessage = HttpUtils.sendMessage(message.getContent());
-            wechatHttpService.sendText(message.getFromUserName(), chatMessage.getMsg());
-        }
        // HttpClientDemo.getRedirectInfo();
         //ChatMessage chatMessage = HttpUtils.sendMessage(message.getContent());
        //wechatHttpService.sendText(message.getFromUserName(), chatMessage.getMsg());

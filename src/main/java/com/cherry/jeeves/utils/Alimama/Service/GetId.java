@@ -1,4 +1,4 @@
-package com.cherry.jeeves.utils.Alimama;
+package com.cherry.jeeves.utils.Alimama.Service;
 
 
 
@@ -21,10 +21,19 @@ public class GetId{
         doc = Jsoup.connect(url).get();
         Elements elScripts = doc.getElementsByTag("script");
         //获取商品id
-        String id = elScripts.get(1).data().toString().split("https://a.m.taobao.com/i")[1].split(".htm?")[0];
+        String targeturl = elScripts.get(1).data().toString();
 
-        String locationUrl ="https://a.m.taobao.com/i"+elScripts.get(1).data().toString().split("https://a.m.taobao.com/i")[1].split("';")[0];
+        String id = null;
+        String locationUrl = null;
+        try {
+            id = targeturl.split("https://a.m.taobao.com/i")[1].split(".htm?")[0];
+            locationUrl ="https://a.m.taobao.com/i"+elScripts.get(1).data().toString().split("https://a.m.taobao.com/i")[1].split("';")[0];
 
+        } catch (Exception e) {
+            //天猫上的url格式https://item.taobao.com/
+            id = targeturl.split("&id=")[1].split("&")[0];
+            locationUrl ="https://item.taobao.com/item.htm?"+elScripts.get(1).data().toString().split("https://item.taobao.com/item.htm?")[1].split("';")[0];
+        }
         map.put("id",id);
         map.put("locationUrl",locationUrl);
         return map;
