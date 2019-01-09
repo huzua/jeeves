@@ -1,5 +1,6 @@
 package com.cherry.jeeves;
 
+import com.cherry.jeeves.utils.Alimama.Keep;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
@@ -19,6 +20,18 @@ public class JeevesApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JeevesApplication.class, args);
+        //保持在线
+        Keep keep = new Keep();
+        while (true){
+            System.out.println("iiiiiiiiiiiiii");
+            try {
+                Thread.sleep((long) Math.random()*1000*60*5+1000*60*5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            keep.start();
+        }
+
     }
     @Bean
     public CloseableHttpClient getCloseableHttpClient(@Qualifier("httpClientBuilder") HttpClientBuilder httpClientBuilder){

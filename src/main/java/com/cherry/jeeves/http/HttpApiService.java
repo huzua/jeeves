@@ -51,19 +51,33 @@ public class HttpApiService {
         HttpGet httpGet = new HttpGet(url);
 
         // 装载配置信息
-        httpGet.setConfig(config);
-        httpGet.setHeader("Accept", "Accept text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        //httpGet.setConfig(config);
+        httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
-        httpGet.setHeader("Accept-Charset", "GB2312,utf-8;q=0.7,*;q=0.7");
+        //httpGet.setHeader("Accept-Charset", "GB2312,utf-8;q=0.7,*;q=0.7");
 
         httpGet.setHeader("Accept-Encoding", "gzip, deflate, br");
 
-        httpGet.setHeader("Accept-Language", "zh-cn,zh;q=0.5");
-        httpGet.setHeader("Cookie",  "cna=m/sCFAFYXnUCAXOrPep/gomP; undefined_yxjh-filter-1=true; 122862637_yxjh-filter-1=true; account-path-guide-s1=true; t=83218a6bcaeb2b18b6f9ab8ebf54111e; cookie2=1acb1678ed1eb2a1c2de46effce94d16; v=0; _tb_token_=e443e791757ad; JSESSIONID=64D61F996829CCD2B3B0A2BE383410FA; alimamapwag=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzU4LjAuMzAyOS4xMTAgU2FmYXJpLzUzNy4zNg%3D%3D; cookie32=a0a52b1d30ec94b8d4f21c8bb38cb415; alimamapw=E3QFRHcHFCYDQHEGUFMBVFMHBgE8UQBVBVJXUgABAFYHWFBUUAdWUgICAgYHUgZXVlJUBAA%3D; cookie31=MTIyODYyNjM3LCVFOCU5MyU5RCVFOCVCMCU4MzIwMTUxMDA2LDEyMDc5MzA2ODNAcXEuY29tLFRC; login=UtASsssmOIJ0bQ%3D%3D; apushc959b9f7e6ba270304159d181db2e169=%7B%22ts%22%3A1545318405923%2C%22parentId%22%3A1545312950978%7D; l=aBeR_bk0yFEsFszKCMa4Asygu70jmB5zwnwy1MamITEhNaTLx1kEzH-o-VwRc_hC5JUy_7t5P; isg=BPf3nKC2Z9UlxuSIhBkOIiWLhuuBFAznDYZ1LEmkUkYt-Bc6UI-Ub7_e3hIDLqOW");
+        httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2");
+        httpGet.setHeader("Cookie",  "t=6802c30ac83be12a5aad41230f2638c2; cna=LWW3FFH+ZEcCAXrrvpE7YESG; l=aB5n4YdJyYyDzkCKkMa5pSGPg70jmB5P8E7WEMayuTEhNaTksPAQkjto-Vw69_qC5Phy_X-iI; isg=BFNTjD0lC09oIcebHOKL1iRp4de9oCAztCslHQVwrHKphHMmjdkfGrDWujRPPz_C; 122862637_yxjh-filter-1=true; cookie2=11e4d8e8d4cb2f4fc47a37be3e6378dc; v=0; _tb_token_=3e69e3a13d010; alimamapwag=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NDsgcnY6NjQuMCkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC82NC4w; cookie32=a0a52b1d30ec94b8d4f21c8bb38cb415; alimamapw=RnBWFnIPFnUCQXEFBVQCVAgIUwVvAwVdBwFWUwACVVEEWAtbBQMFAAcKAFUGUwZUA1VXBFs%3D; cookie31=MTIyODYyNjM3LCVFOCU5MyU5RCVFOCVCMCU4MzIwMTUxMDA2LDEyMDc5MzA2ODNAcXEuY29tLFRC; login=W5iHLLyFOGW7aA%3D%3D; rurl=aHR0cHM6Ly9wdWIuYWxpbWFtYS5jb20v; apushc959b9f7e6ba270304159d181db2e169=%7B%22ts%22%3A1547041705248%2C%22heir%22%3A1547041261500%2C%22parentId%22%3A1547041250041%7D");
         httpGet.setHeader("Connection", "keep-alive");
 
-        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2");
+        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0");
 
+        //t=6802c30ac83be12a5aad41230f2638c2; cna=LWW3FFH+ZEcCAXrrvpE7YESG; l=aB5n4YdJyYyDzzbBzMaYpSR_s70jmB5P8fnCEMaywTEhNaTksPAQkjno-Vw69_qC5TGy_X-iI; isg=BDg4XBpNkK5dzPwqy9sgF2ugCuYKCVvS67J-THKphHMmjdh3GrFsu06nQUWYxlQD; JSESSIONID=51A6A61F3E486DC2906C2D7085B01097; cookie2=18758dca87cf41420de2089ca2965e27; v=0; _tb_token_=6ee3e73e37a7; alimamapwag=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NDsgcnY6NjQuMCkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC82NC4w; cookie32=a0a52b1d30ec94b8d4f21c8bb38cb415; alimamapw=RnBWFnIPFnUCQXEFBVQCVAgIUwVvAwVdBwFWUwACVVEEWAtbBQMFAAcKAFUGUwZUA1VXBFs%3D; cookie31=MTIyODYyNjM3LCVFOCU5MyU5RCVFOCVCMCU4MzIwMTUxMDA2LDEyMDc5MzA2ODNAcXEuY29tLFRC; login=VT5L2FSpMGV7TQ%3D%3D; rurl=aHR0cHM6Ly9wdWIuYWxpbWFtYS5jb20vP3NwbT1hMjE5dC43OTAwMjIxLzEuMTk5ODkxMDQxOS5kMzRiMWY5ZmEuZmRkMzc1YTVJNkRSTHY%3D
+
+//        httpGet.setHeader("Accept", "Accept text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+//
+//        httpGet.setHeader("Accept-Charset", "GB2312,utf-8;q=0.7,*;q=0.7");
+//
+//        httpGet.setHeader("Accept-Encoding", "gzip, deflate, br");
+//
+//        httpGet.setHeader("Accept-Language", "zh-cn,zh;q=0.5");
+//        httpGet.setHeader("Cookie",  "cna=m/sCFAFYXnUCAXOrPep/gomP; undefined_yxjh-filter-1=true; 122862637_yxjh-filter-1=true; account-path-guide-s1=true; t=83218a6bcaeb2b18b6f9ab8ebf54111e; cookie2=1acb1678ed1eb2a1c2de46effce94d16; v=0; _tb_token_=e443e791757ad; JSESSIONID=64D61F996829CCD2B3B0A2BE383410FA; alimamapwag=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzU4LjAuMzAyOS4xMTAgU2FmYXJpLzUzNy4zNg%3D%3D; cookie32=a0a52b1d30ec94b8d4f21c8bb38cb415; alimamapw=E3QFRHcHFCYDQHEGUFMBVFMHBgE8UQBVBVJXUgABAFYHWFBUUAdWUgICAgYHUgZXVlJUBAA%3D; cookie31=MTIyODYyNjM3LCVFOCU5MyU5RCVFOCVCMCU4MzIwMTUxMDA2LDEyMDc5MzA2ODNAcXEuY29tLFRC; login=UtASsssmOIJ0bQ%3D%3D; apushc959b9f7e6ba270304159d181db2e169=%7B%22ts%22%3A1545318405923%2C%22parentId%22%3A1545312950978%7D; l=aBeR_bk0yFEsFszKCMa4Asygu70jmB5zwnwy1MamITEhNaTLx1kEzH-o-VwRc_hC5JUy_7t5P; isg=BPf3nKC2Z9UlxuSIhBkOIiWLhuuBFAznDYZ1LEmkUkYt-Bc6UI-Ub7_e3hIDLqOW");
+//        httpGet.setHeader("Connection", "keep-alive");
+//
+//        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2");
+//
 
         // 发起请求
         CloseableHttpResponse response = httpClient.execute(httpGet);
@@ -72,6 +86,7 @@ public class HttpApiService {
         if (response.getStatusLine().getStatusCode() == 200) {
             // 返回响应体的内容
             HttpEntity entity = response.getEntity();   // 获取网页内容
+            //System.out.println(EntityUtils.toString(response.getEntity(), "UTF-8"));
             return EntityUtils.toString(response.getEntity(), "UTF-8");
         }
         return null;
